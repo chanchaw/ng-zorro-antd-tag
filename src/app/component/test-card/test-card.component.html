@@ -1,0 +1,22 @@
+<div style="background: #ECECEC;padding:30px;">
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzSpan]="8">
+        <nz-card nzTitle="结算方式：">
+            <app-cc-nz-tag [tags]="js" (addNew)="addNewTag($event)" 
+            (delete)="deleteTag($event)" (update)="updateTag($event)"></app-cc-nz-tag>
+        </nz-card>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-card nzTitle="交货方式">
+            <app-cc-nz-tag [tags]="jh" (addNew)="addNewTag($event)" 
+            (delete)="deleteTag($event)" (update)="updateTag($event)"></app-cc-nz-tag>
+        </nz-card>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-card nzTitle="包装方式">
+            <app-cc-nz-tag [tags]="bz" (addNew)="addNewTag($event)" 
+            (delete)="deleteTag($event)" (update)="updateTag($event)"></app-cc-nz-tag>
+        </nz-card>
+      </div>
+    </div>
+</div>

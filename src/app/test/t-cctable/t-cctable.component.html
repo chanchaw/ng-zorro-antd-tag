@@ -1,0 +1,6 @@
+<button (click)="printNewArray()" nz-button>返回新数组并且打印</button>
+<app-cc-nz-table-single-col
+  [colCaption]="caption" [tableData]="tableData"
+  (addNew)="addNew($event)"
+  (delete)="delete($event)"
+  (update)="update($event)"></app-cc-nz-table-single-col>

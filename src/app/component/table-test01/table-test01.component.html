@@ -1,0 +1,74 @@
+<div nz-row>
+    <div nz-col nzSpan="8" nzOffset="16">
+      <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+          <input type="text" nz-input [(ngModel)]="search"
+              placeholder="输入内容进行搜索" id="search" name="search"
+              (input)="onSearchChange($event)">
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i></button>
+      </ng-template>
+    </div>
+</div><br>
+
+  <nz-table #nzTable [nzData]="tableData" nzSize="small">
+    <thead>
+      <tr>
+        <th>行号</th>
+        <th>{{colCaption}}</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr *ngFor="let data of nzTable.data;let i=index">
+        <!-- 行号列 -->
+        <td>{{i+1}}</td>
+        
+        <!-- 数据列 -->
+        <td>
+            <div class="editable-cell">
+                <div class="editable-cell-text-wrapper">
+                    <ng-container *ngIf="!editCache[i].isEdit">
+                      {{data.data}}
+                    </ng-container>
+  
+                    <ng-container *ngIf="editCache[i].isEdit">
+                      <input #editor type="text" nz-input [(ngModel)]="editCache[i].data"
+                        (keydown.escape)="onEscape($event,i)">
+                    </ng-container>
+                </div>              
+            </div>
+        </td>
+  
+        <!-- 操作列 -->
+        <td>
+          <div class="editable-row-operations">
+            <ng-container *ngIf="!editCache[i].isEdit">
+              <a (click)="startEdit(i)">编辑</a>
+
+              <nz-popconfirm [nzTitle]="'确定要删除么?'" (nzOnConfirm)="delete(data.data)">
+                <a nz-popconfirm>删除</a>
+              </nz-popconfirm>
+
+            </ng-container>
+            <ng-container *ngIf="editCache[i].isEdit">
+              <a (click)="saveEdit(i)">保存</a>
+              <nz-popconfirm [nzTitle]="'确定要取消么?'" (nzOnConfirm)="cancelEdit(i)">
+                <a nz-popconfirm>取消</a>
+              </nz-popconfirm>
+            </ng-container>
+          </div>
+        </td>
+      </tr>  
+      <tr>
+        <td></td>
+        <td>
+          <input nz-input [(ngModel)]="newData" id="newData" name="newData" placeholder="新增"
+            (keydown.enter)="onAddNew($event)">
+        </td>
+        <td></td>
+      </tr>  
+    </tbody>
+  </nz-table>

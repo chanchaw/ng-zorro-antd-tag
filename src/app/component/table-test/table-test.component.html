@@ -1,0 +1,52 @@
+<div nz-row>
+  <div nz-col nzSpan="4">
+    <button (click)="updateEle()" nz-button>修改美国</button>
+  </div>
+  <div nz-col nzSpan="10" nzOffset="10">
+    <input nz-input [(ngModel)]="name" id="name" name="name" placeholder="输入内容进行搜索">
+  </div>
+</div>
+<nz-table #nzTable [nzData]="tableData">
+  <thead>
+    <tr>
+      <th>行号</th>
+      <th>结算方式</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data;let i=index">
+      <td>{{i+1}}</td>
+      <td>
+          <div class="editable-cell">
+              <div class="editable-cell-text-wrapper">
+                  <ng-container *ngIf="!editCache[i].isEdit">
+                    {{data}}
+                  </ng-container>
+
+                  <ng-container *ngIf="editCache[i].isEdit">
+                    <input type="text" nz-input [(ngModel)]="editCache[i].data">
+                  </ng-container>
+              </div>              
+          </div>
+      </td>
+
+
+      <td>
+        <div class="editable-row-operations">
+          <ng-container *ngIf="!editCache[i].isEdit">
+            <a (click)="startEdit(i)">编辑</a>
+          </ng-container>
+          <ng-container *ngIf="editCache[i].isEdit">
+            <a (click)="saveEdit(i)">保存</a>
+            <nz-popconfirm [nzTitle]="'确定要取消么?'" (nzOnConfirm)="cancelEdit(i)">
+              <a nz-popconfirm>取消</a>
+            </nz-popconfirm>
+          </ng-container>
+        </div>
+      </td>
+
+
+    </tr>    
+  </tbody>
+</nz-table>
